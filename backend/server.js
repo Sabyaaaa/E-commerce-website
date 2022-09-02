@@ -1,18 +1,14 @@
 const app = require("./app");
 const dotenv = require("dotenv");
+const connectDatabase = require("./config/database");
 
 
 //config
-dotenv.config({ path: "backend/config/congig.env" })
+dotenv.config({ path: "backend/config/config.env" })
 
+//connecting to database
+connectDatabase();
 
-
-
-
-
-// app.listen(process.env.PORT, () => {
-//     console.log('Server is working on http://localhost:${process.env.PORT}')
-// })
-app.listen(4000, function () {
-    console.log('Example app listening on port 4000!');
+app.listen(process.env.PORT, () => {
+    console.log(`Server is working on http://localhost:${process.env.PORT}`)
 });
