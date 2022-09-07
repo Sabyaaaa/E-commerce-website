@@ -15,4 +15,4 @@ module.exports = (err, req, res, next) => {
         success: false,
         message: err.message
     });
-}
+};
