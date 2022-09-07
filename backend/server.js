@@ -6,7 +6,8 @@ const connectDatabase = require("./config/database");
 process.on("uncaughtException", (err) => {
 
     console.log(`Error: ${err.message}`);
-    console.log(`Shutting down he server due to Uncaught Exception`);
+    console.log(`Shutting down the server due to Uncaught Exception`);
+
 });
 
 //config
@@ -27,5 +28,7 @@ process.on("unhandledRejection", (err) => {
 });
 
 app.listen(process.env.PORT, () => {
+
     console.log(`Server is working on http://localhost:${process.env.PORT}`)
+
 });
