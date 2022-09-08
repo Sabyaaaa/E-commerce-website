@@ -17,14 +17,14 @@ exports.createProduct = catchAsyncErrors(async (req, res) => {
 //Get all products
 exports.getAllProducts = catchAsyncErrors(async (req, res) => {
 
-    const apiFeatures = new ApiFeatures(Products.find(), req.query);
+    const apiFeature = new ApiFeatures(Products.find(), req.query)
+        .search().filter();
 
-    const products = await Products.find();
+    const product = await apiFeature.query;
 
     res.status(200).json({
         success: true,
-        products
-        // message: "Route is working fine" 
+        product
     });
 });
 
@@ -69,7 +69,6 @@ exports.updateProduct = catchAsyncErrors(async (req, res, next) => {
 });
 
 //Delete Product - ADMIN
-
 exports.deleteProduct = catchAsyncErrors(async (req, res, next) => {
 
     const product = await Products.findById(req.params.id);
