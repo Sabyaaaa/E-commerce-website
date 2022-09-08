@@ -24,3 +24,4 @@ exports.registerUser = catchAsyncErrors(async (req, res, next) => {
         token
     });
 });
+
