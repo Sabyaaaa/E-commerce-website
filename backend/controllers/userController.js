@@ -31,20 +31,20 @@ exports.loginUser = catchAsyncErrors(async (req, res, next) => {
     const { email, password } = req.body;
 
     //checking if the user has given email and password both
-    if (!email || password) {
-        return next(new ErrorHandler("Please Enter Email"));
+    if (!email || !password) {
+        return next(new ErrorHandler("Please Enter Email and password", 400));
     }
 
-    const user = User.findOne({ email }).select("+password");
+    const user = await User.findOne({ email }).select("+password");
 
     if (!user) {
-        return next(new ErrorHandler("Invalid Email or Password"));
+        return next(new ErrorHandler("Invalid Email or Password", 401));
     }
 
-    const isPasswordMatched = user.comparePassword();
+    const isPasswordMatched = user.comparePassword(password);
 
     if (!isPasswordMatched) {
-        return next(new ErrorHandler("Invalid Email or Password"));
+        return next(new ErrorHandler("Invalid Email or Password", 401));
     }
 
     const token = user.getJWTToken();
@@ -52,5 +52,5 @@ exports.loginUser = catchAsyncErrors(async (req, res, next) => {
     res.status(200).json({
         success: true,
         token
-    })
-})
+    });
+});

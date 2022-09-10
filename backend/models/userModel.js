@@ -61,6 +61,30 @@ userSchema.methods.getJWTToken = function () {
     return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
         expiresIn: process.env.JWT_EXPIRE,
     });
-}
+};
+
+//Compare Password
+// userSchema.methods.comparePassword = async function (enteredPassword) {
+//     return await bcrypt.compare(enteredPassword, this.password, (err, data) => {
+//         //if error than throw error
+//         if (err) throw err
+
+//         //if both match than you can do anything
+//         if (data) {
+//             console.log("login success");
+//             // return res.status(200).json({ msg: "Login success" })
+//         } else {
+//             console.log("login failed");
+
+//             // return res.status(401).json({ msg: "Invalid credencial" })
+//         }
+
+//     })
+// };
+
+//Compare Password
+userSchema.methods.comparePassword = async function (enteredPassword) {
+    return await bcrypt.compare(enteredPassword, this.password);
+};
 
 module.exports = mongoose.model("User", userSchema);
